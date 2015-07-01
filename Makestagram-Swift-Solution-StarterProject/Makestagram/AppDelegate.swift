@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Parse
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,6 +18,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    
+    // Set up the Parse SDK
+    Parse.setApplicationId("T1tyN3nPuyED3JGZZcF8yHYBekYLtDVyDUFTeDjv", clientKey: "tNxg9OnDGouPPSkTMdZAeVb6DBkinySZudwPHAic")
+    
+    
+    // *** NEEDS TO BE CHANGED LATER ***
+    // Login as temporary fake user to skip building a login screen
+    PFUser.logInWithUsername("test", password: "test")
+    
+    // Check if the login was successful
+    if let user = PFUser.currentUser() {
+        println("Log in successful :)")
+    } else {
+        println("No logged in user :(")
+    }
+    // *** NEEDS TO BE CHANGED LATER ***
+    
     
     return true
   }
