@@ -31,7 +31,7 @@ class PhotoTakingHelper: NSObject {
     // Presents dialog that allows user to choose between camera and photo library
     func showPhotoSourceSelection() {
         
-        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .Alert) // try case alert
+        let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
         
         // Adds cancel button
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -59,16 +59,21 @@ class PhotoTakingHelper: NSObject {
         imagePickerController = UIImagePickerController()
         imagePickerController!.sourceType = sourceType
         imagePickerController!.delegate = self
+        
         self.viewController.presentViewController(imagePickerController!, animated: true, completion: nil)
     }
 }
 
 extension PhotoTakingHelper: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        
+        viewController.dismissViewControllerAnimated(false, completion: nil)
         callback(image)
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         viewController.dismissViewControllerAnimated(true, completion: nil)
     }
+
 }

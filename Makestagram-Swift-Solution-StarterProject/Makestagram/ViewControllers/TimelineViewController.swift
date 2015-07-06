@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 // This is the main View Controller of the app
 class TimelineViewController: UIViewController {
@@ -39,8 +40,9 @@ class TimelineViewController: UIViewController {
     
     func takePhoto() {
         photoTakingHelper = PhotoTakingHelper(viewController: self.tabBarController!, callback: { (image: UIImage?) in
-            // Nothing yet...
-            println("received a callback")
+            let post = Post()
+            post.image = image
+            post.uploadPost()
         })
     }
 }
