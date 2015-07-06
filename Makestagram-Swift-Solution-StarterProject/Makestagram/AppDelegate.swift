@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Set up the Parse SDK
     Parse.setApplicationId("T1tyN3nPuyED3JGZZcF8yHYBekYLtDVyDUFTeDjv", clientKey: "tNxg9OnDGouPPSkTMdZAeVb6DBkinySZudwPHAic")
     
-    
-    // *** NEEDS TO BE CHANGED LATER ***
     // Login as temporary fake user to skip building a login screen
     PFUser.logInWithUsername("test", password: "test")
     
@@ -33,8 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     } else {
         println("No logged in user :(")
     }
-    // *** NEEDS TO BE CHANGED LATER ***
     
+    let acl = PFACL()
+    acl.setPublicReadAccess(true)
+    PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
     
     return true
   }
