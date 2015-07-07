@@ -12,6 +12,10 @@ import Parse
 // This is the main View Controller of the app
 class TimelineViewController: UIViewController {
 
+    var posts: [Post] = []
+    
+    @IBOutlet var tableView: UITableView!
+    
     var photoTakingHelper: PhotoTakingHelper?
     
     override func viewDidLoad() {
@@ -22,6 +26,17 @@ class TimelineViewController: UIViewController {
         self.tabBarController?.delegate = self
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        ParseHelper.timelineRequestforCurrentUser {
+            (result: [AnyObject]?, error: NSError?) -> Void in
+            self.posts = result as? [Post] ?? []
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,12 +56,29 @@ class TimelineViewController: UIViewController {
     func takePhoto() {
         photoTakingHelper = PhotoTakingHelper(viewController: self.tabBarController!, callback: { (image: UIImage?) in
             let post = Post()
-            post.image = image
+            post.image.value = image!
             post.uploadPost()
         })
     }
 }
 
+extension TimelineViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
+        let post = posts[indexPath.row]
+        post.downloadImage()
+        cell.post = post
+        
+        return cell 
+    }
+    
+}
 
 // MARK: Tab Bar Delegate
 
