@@ -35,7 +35,7 @@ class ParseHelper {
 
     // MARK: Timeline
     
-    static func timelineRequestforCurrentUser(completionBlock: PFArrayResultBlock) {
+    static func timelineRequestforCurrentUser(range: Range<Int>, completionBlock: PFArrayResultBlock) {
         
         // CHECK THIS
         
@@ -51,6 +51,9 @@ class ParseHelper {
         let query = PFQuery.orQueryWithSubqueries([postsFromFollowedUsers!, postsFromThisUser!])
         query.includeKey(ParsePostUser)
         query.orderByDescending(ParsePostCreatedAt)
+        
+        query.skip = range.startIndex
+        query.limit = range.endIndex - range.startIndex
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
     }

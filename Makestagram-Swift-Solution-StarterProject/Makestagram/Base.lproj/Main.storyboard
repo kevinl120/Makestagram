@@ -146,6 +146,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="CNa-H1-1BS" id="0gc-S9-DWY"/>
+                                    <outlet property="delegate" destination="CNa-H1-1BS" id="H35-3a-Nc7"/>
                                 </connections>
                             </tableView>
                         </subviews>
