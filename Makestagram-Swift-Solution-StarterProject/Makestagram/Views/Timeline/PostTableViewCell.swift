@@ -12,6 +12,10 @@ import Bond
 class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var postImageView: UIImageView!
+    @IBOutlet var likesIconImageView: UIImageView!
+    @IBOutlet var likesLabel: UILabel!
+    @IBOutlet var likeButton: UIButton!
+    @IBOutlet var moreButton: UIButton!
     
     var post: Post? {
         didSet {
@@ -31,5 +35,14 @@ class PostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    @IBAction func likeButtonTapped(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func moreButtonTapped(sender: AnyObject) {
+        
+    }
+    
 
 }
